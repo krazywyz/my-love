@@ -12,87 +12,95 @@
   --rose-deep:#c64b5b;
   --ink:#2a1a16;
   --gold:#d7b891;
+  --muted:#7a4f4f;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);line-height:1.45}
-main{max-width:980px;margin:0 auto;padding:24px}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.45}
+.container{max-width:980px;margin:0 auto;padding:20px}
 
-/* fragment target approach:
-   When #open-target is in the URL (hash), hide the intro and show main.
-*/
-#open-target { position: absolute; left: -9999px; top: -9999px; }
-/* default state: intro visible, main hidden */
-#intro { position:fixed; inset:0; background:var(--ink); display:flex; flex-direction:column; gap:16px; align-items:center; justify-content:center; color:var(--gold); z-index:9999; padding:24px; text-align:center; }
-#main-content { opacity:0; pointer-events:none; transition: opacity .28s ease; }
+/* Intro overlay */
+#intro{position:fixed;inset:0;background:var(--ink);display:flex;flex-direction:column;gap:16px;align-items:center;justify-content:center;color:var(--gold);z-index:9999;padding:24px;text-align:center}
+.title{font-family:'Playfair Display',serif;color:#fff;font-size:34px;font-style:italic}
+.open-btn{appearance:none;border:none;padding:12px 22px;border-radius:999px;border:1.5px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;font-weight:600}
 
-/* when the fragment target is active, hide intro and reveal main */
-#open-target:target ~ #intro { display:none !important; }
-#open-target:target ~ #main-content { opacity:1 !important; pointer-events:auto !important; }
-
-/* Styling */
-#intro .title{font-family:'Playfair Display',serif;color:#fff;font-size:34px;font-style:italic}
-a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border:1.5px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;text-decoration:none;display:inline-block }
-.section{padding:32px 0;border-bottom:1px solid rgba(0,0,0,.03)}
+/* Basic sections */
+.section{padding:28px 0;border-bottom:1px solid rgba(0,0,0,.03)}
 .section-label{font-size:12px;letter-spacing:.35em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--rose-deep);margin-bottom:8px;text-align:center}
 .hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;text-align:center;color:var(--ink);max-width:760px;margin:0 auto}
-.letter-box{background:var(--ink);color:var(--cream);padding:18px;border-radius:10px;border:1px solid rgba(214,135,146,.08);font-family:'Cormorant Garamond',serif;white-space:pre-wrap;min-height:160px}
+
+/* Letter */
+.letter-box{background:var(--ink);color:var(--cream);padding:18px;border-radius:10px;border:1px solid rgba(214,135,146,.08);font-family:'Cormorant Garamond',serif;white-space:pre-wrap;min-height:140px}
+
+/* Timeline */
 .tl-item{padding:18px 0;border-bottom:1px dashed rgba(198,75,91,.08)}
 .tl-date{font-family:'Cormorant Garamond',serif;color:var(--rose-deep);font-size:13px}
 .tl-title{font-family:'Cormorant Garamond',serif;color:var(--rose-deep);font-size:20px;margin:8px 0}
 .tl-excerpt{color:#5a3a32;font-size:15px}
 .tl-btn{padding:10px 16px;border-radius:8px;border:1px solid var(--rose-deep);background:transparent;color:var(--rose-deep);cursor:pointer;margin-top:10px}
+
+/* Content warning */
 .content-warning{background:#fff3f3;border:1px solid #f1c6c6;padding:12px;border-radius:8px;color:#6b2a2a;margin-bottom:10px}
+
+/* Modal */
 #chat-modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;padding:16px;z-index:2000}
 #chat-modal.open{display:flex}
 .modal-card{background:var(--cream);border-radius:12px;padding:16px;max-width:820px;width:100%;max-height:86vh;overflow:auto}
 .modal-close{float:right;background:none;border:none;font-size:20px;cursor:pointer;color:var(--ink)}
+
+/* Countdown */
 .cd-grid{display:flex;gap:12px;justify-content:center;margin-top:12px;flex-wrap:wrap}
 .cd-box{background:#fff;padding:12px;border-radius:10px;min-width:100px;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.06)}
 .cd-num{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--rose)}
-.cd-label{font-size:11px;color:#7a4f4f;letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
-.add-reason-btn{padding:10px 18px;border-radius:8px;border:1px solid var(--rose-deep);background:transparent;color:var(--rose-deep);cursor:pointer;font-weight:600}
+.cd-label{font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}
+
+/* Reasons */
+.add-reason-btn{padding:10px 18px;border-radius:8px;border:1px solid var(--rose-deep);background:transparent;color:var(--rose-deep);cursor:pointer;font-weight:700}
 #reasons-count{font-family:'Cormorant Garamond',serif;font-size:48px;color:var(--rose);margin:12px 0;text-align:center}
+
+/* Quiz */
 .quiz-card{background:#fff6f7;border-radius:12px;padding:12px;border:1px solid rgba(198,75,91,.06)}
 .option{display:block;padding:12px;border-radius:10px;border:1px solid rgba(198,75,91,.06);background:#fff;margin-bottom:8px;text-align:left;cursor:pointer}
+
+/* Music player */
 .music-player{position:fixed;right:16px;bottom:16px;background:var(--ink);color:var(--cream);padding:10px 14px;border-radius:999px;display:flex;gap:12px;align-items:center;box-shadow:0 12px 40px rgba(0,0,0,.18);z-index:1500}
+.music-title{font-weight:700}
+.music-artist{font-size:12px;color:var(--gold)}
 .play-btn{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:transparent;color:var(--cream);cursor:pointer}
-@media(max-width:520px){ .hero-title{font-size:22px} .cd-grid{gap:8px} #reasons-count{font-size:40px} }
+
+/* Responsive */
+@media(max-width:520px){
+  .hero-title{font-size:22px}
+  #reasons-count{font-size:40px}
+}
 </style>
 </head>
 <body>
 
-<!-- invisible target for CSS fragment solution -->
-<div id="open-target" aria-hidden="true"></div>
-
-<!-- Intro overlay (visible until hash #open-target or JS hides it) -->
+<!-- Intro overlay -->
 <div id="intro" role="dialog" aria-modal="true" aria-label="Intro overlay">
   <div style="font-family:'Cormorant Garamond',serif;color:var(--gold);letter-spacing:.25em;text-transform:uppercase">for the moments that made us</div>
-  <div class="title" style="font-family:'Playfair Display',serif;color:#fff;font-style:italic;font-size:34px">For Enhle</div>
-
-  <!-- anchor -> fragment ensures CSS fallback works even with no JS -->
-  <a class="open-anchor" href="#open-target" id="openAnchor" role="button" aria-label="Open site">Open</a>
-  <!-- JS-friendly button fallback (kept for parity) -->
-  <button id="openBtn" class="open-button" type="button" style="display:none" aria-hidden="true">Open</button>
+  <div class="title">For Enhle</div>
+  <button id="openBtn" class="open-btn" type="button" aria-label="Open site">Open</button>
 </div>
 
-<!-- Music UI -->
-<div class="music-player" id="music-player" style="display:none" aria-hidden="true">
-  <div style="display:flex;flex-direction:column">
-    <div id="music-title" style="font-weight:700">Superpowers</div>
-    <div id="music-artist" style="font-size:12px;color:var(--gold)">Daniel Caesar</div>
+<!-- Music player -->
+<div id="music" class="music-player" style="display:none" aria-hidden="true">
+  <div>
+    <div id="musicTitle" class="music-title">Superpowers</div>
+    <div id="musicArtist" class="music-artist">Daniel Caesar</div>
   </div>
-  <div style="margin-left:12px">
+  <div>
     <button id="playPauseBtn" class="play-btn" aria-label="Play/Pause">Play</button>
   </div>
 </div>
 
-<!-- hidden YT player container -->
+<!-- Hidden container for YouTube player -->
 <div id="yt-player" style="display:none"></div>
 
-<!-- Main content (hidden by default via CSS until target or JS reveal) -->
-<main id="main-content" aria-hidden="true">
+<!-- Main content -->
+<main id="main-content" class="container" style="display:none">
 
   <section class="section" id="hero">
     <div class="section-label">To my girl</div>
@@ -105,7 +113,7 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
     <div class="letter-box" id="typed-letter" aria-live="polite"></div>
     <div style="text-align:center;margin-top:10px">
       <small style="color:var(--gold)">— Calvin (Grade 10)</small>
-      <button id="toggle-sensitive-btn" class="tl-btn" style="margin-left:10px">Show sensitive (H)</button>
+      <button id="toggleSensitiveBtn" class="tl-btn" style="margin-left:10px">Show sensitive (H)</button>
     </div>
   </section>
 
@@ -132,7 +140,7 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
         20:12 — Enhle replied: "Heyyyy" (enthusiastic)<br>
         You talked until after midnight while she unplaited her braids.
       </div>
-      <div><button class="tl-btn" onclick="openChat('first-text')">Open conversation</button></div>
+      <div><button class="tl-btn" data-id="first-text">Open conversation</button></div>
     </div>
 
     <div class="tl-item">
@@ -144,7 +152,7 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
         05:35 — She replied: "Aw thank you sm 😭❤️ Don't make me cry now 🥺❤️"<br>
         05:50 — "Its okay I love it ❤️"
       </div>
-      <div><button class="tl-btn" onclick="openChat('birthday-letter')">Open conversation</button></div>
+      <div><button class="tl-btn" data-id="birthday-letter">Open conversation</button></div>
     </div>
 
     <div class="tl-item">
@@ -154,7 +162,7 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
         22:28 — "Let's make it official 🤷🏾‍♂️"<br>
         22:29 — "You want a long distance relationship"
       </div>
-      <div><button class="tl-btn" onclick="openChat('make-official')">Open conversation</button></div>
+      <div><button class="tl-btn" data-id="make-official">Open conversation</button></div>
     </div>
 
     <div class="tl-item">
@@ -165,25 +173,25 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
         20:06 — "Am I not? What happened to the joke 😭😭😭"<br>
         20:19 — "Mission successful 💕 You laughed 😭😭"
       </div>
-      <div><button class="tl-btn" onclick="openChat('official-ask')">Open conversation</button></div>
+      <div><button class="tl-btn" data-id="official-ask">Open conversation</button></div>
     </div>
 
     <div class="tl-item">
       <div class="tl-date">14 Feb 2026 — 00:02</div>
       <div class="tl-title">Valentine's Day</div>
       <div class="tl-excerpt">00:02 — "Happy Valentine's day to my beautiful, amazing and gorgeous girlfriend 💕❤️"</div>
-      <div><button class="tl-btn" onclick="openChat('valentine')">Open conversation</button></div>
+      <div><button class="tl-btn" data-id="valentine">Open conversation</button></div>
     </div>
 
     <div class="tl-item">
       <div class="tl-date">17 Jun 2026 — early morning</div>
       <div class="tl-title">The Breakup & Getting Back Together</div>
       <div class="content-warning">
-        Before diving in — while going through the chat, I came across the moment on June 17th at 3:55 AM where you mentioned not wanting to become suicidal again. I can see that was a really dark and painful night. I'm genuinely glad you and Enhle found your way back to each other — how are you doing right now, really? If you ever need to talk or want support resources, I'm here. 💙
+        Before diving in — while going through the chat, I came across the moment on June 17th at 3:55 AM where you mentioned not wanting to become suicidal again. I'm genuinely glad you and Enhle found your way back to each other — how are you doing right now, really? If you ever need to talk or want support resources, I'm here. 💙
         <div style="margin-top:8px;font-weight:700">Content warning: this conversation contains mention of suicidal thoughts. If you are struggling, please contact a trusted person or local emergency services.</div>
       </div>
       <div class="tl-excerpt" id="excerpt-breakup">~03:47 — Things escalated on a call and Enhle started saying "Bye", telling you she was going to block you. (Sensitive — press H to reveal)</div>
-      <div><button class="tl-btn" onclick="openChat('breakup')">Open conversation</button></div>
+      <div><button class="tl-btn" data-id="breakup">Open conversation</button></div>
     </div>
 
   </section>
@@ -191,10 +199,10 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
   <section class="section" id="reasons">
     <div class="section-label">Reasons I love you</div>
     <h2 class="hero-title" style="font-size:20px">This number keeps growing</h2>
-    <div style="max-width:720px;margin:12px auto;text-align:center;color:#fff;padding:12px">
+    <div style="max-width:720px;margin:12px auto;text-align:center;color:var(--cream);padding:12px;background:transparent">
       <div id="reasons-count">0</div>
       <div style="margin-top:8px;color:#f0d9d9">and counting...</div>
-      <div style="margin-top:12px"><button id="add-reason-btn" class="add-reason-btn">Add one more reason ✦</button></div>
+      <div style="margin-top:12px"><button id="addReason" class="add-reason-btn">Add one more reason ✦</button></div>
     </div>
   </section>
 
@@ -202,12 +210,11 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
     <div class="section-label">For fun</div>
     <h2 class="hero-title" style="font-size:20px">A little quiz — one question at a time</h2>
     <div class="quiz-card" style="max-width:820px;margin:0 auto">
-      <div id="quiz-slide" style="min-height:140px"></div>
+      <div id="quizSlide" style="min-height:140px"></div>
       <div style="display:flex;justify-content:center;gap:8px;margin-top:12px">
-        <button id="quiz-next" class="tl-btn" disabled>Next</button>
-        <button id="quiz-retry" class="tl-btn">Retry</button>
+        <button id="quizRetry" class="tl-btn">Retry</button>
       </div>
-      <div id="quiz-result" style="margin-top:12px;text-align:center;font-weight:700"></div>
+      <div id="quizResult" style="margin-top:12px;text-align:center;font-weight:700"></div>
     </div>
   </section>
 
@@ -215,68 +222,93 @@ a.open-anchor, button.open-button { padding:10px 20px;border-radius:999px;border
 </main>
 
 <!-- modal -->
-<div id="chat-modal" role="dialog" aria-modal="true" aria-hidden="true">
+<div id="chat-modal" aria-hidden="true">
   <div class="modal-card">
     <button class="modal-close" onclick="closeChat()" aria-label="Close">✕</button>
-    <h3 id="chat-title" style="font-family:'Cormorant Garamond',serif;color:var(--rose-deep)"></h3>
-    <div id="chat-body"></div>
+    <h3 id="chatTitle" style="font-family:'Cormorant Garamond',serif;color:var(--rose-deep)"></h3>
+    <div id="chatBody"></div>
   </div>
 </div>
 
-<!-- YouTube API -->
+<!-- YouTube iframe API -->
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
-/* ======== DATA (exact text you supplied) ======== */
-const chatMoments = [
-  { id:'first-text', date:'12 Jan 2026', title:'The First Text',
-    messages:[
+/* ====== Data (exact chat text) ====== */
+const chatMoments = {
+  'first-text': {
+    date: '12 Jan 2026',
+    title: 'The First Text',
+    messages: [
       {who:'You', time:'20:02', text:'You sent: "Heyy"'},
       {who:'Enhle', time:'20:12', text:'Enhle replied: "Heyyyy" (enthusiastic)'},
       {who:'You', time:'23:50', text:'You talked until after midnight while she unplaited her braids.'}
     ],
-    excerpt:`20:02 — You sent: "Heyy"
+    excerpt: `20:02 — You sent: "Heyy"
 20:12 — Enhle replied: "Heyyyy" (enthusiastic)
 You talked until after midnight...`
   },
-  { id:'birthday-letter', date:'21 Jan 2026 — 05:31', title:'Her Birthday Letter',
-    messages:[
+  'birthday-letter': {
+    date: '21 Jan 2026 — 05:31',
+    title: 'Her Birthday Letter',
+    messages: [
       {who:'You', time:'05:31', text:`"Happy Birthday to the most beautiful, gorgeous, amazing, wonderful, sweet-hearted, caring, one of a kind girl I've ever met. May your day just be as amazing and beautiful as you 💕"`},
       {who:'You', time:'05:41', text:`"I'm hella sorry I didn't send it @00:00 😔 I fell asleep writing it"`},
       {who:'Enhle', time:'05:35', text:`"Aw thank you sm 😭❤️ Don't make me cry now 🥺❤️"`},
       {who:'Enhle', time:'05:50', text:`"Its okay I love it ❤️"`},
     ],
-    excerpt:'05:31 — You sent the birthday message & letter.'
+    excerpt: '05:31 — You sent the birthday message & letter.'
   },
-  { id:'make-official', date:'21 Jan 2026 — 22:28', title:"Let's Make It Official",
-    messages:[ {who:'You', time:'22:28', text:`"Let's make it official 🤷🏾‍♂️"`}, {who:'Enhle', time:'22:29', text:`"You want a long distance relationship"`} ],
-    excerpt:'22:28 — Let's make it official'
-  },
-  { id:'official-ask', date:'1 Feb 2026 — 19:58', title:'The Official "Be My Girlfriend?"',
-    messages:[ {who:'You', time:'19:58', text:`"Do you wanna be my girlfriend?"`}, {who:'Enhle', time:'20:06', text:`"Am I not? What happened to the joke 😭😭😭"`}, {who:'You', time:'20:19', text:`"Mission successful 💕 You laughed 😭😭"`} ],
-    excerpt:'19:58 — The official ask'
-  },
-  { id:'valentine', date:"14 Feb 2026 — 00:02", title:"Valentine's Day",
-    messages:[ {who:'You', time:'00:02', text:`"Happy Valentine's day to my beautiful, amazing and gorgeous girlfriend 💕❤️"`} ],
-    excerpt:"00:02 — Valentine's message"
-  },
-  { id:'breakup', date:'17 Jun 2026', title:'The Breakup & Getting Back Together', sensitive:true,
-    messages:[
-      {who:'Enhle', time:'~03:47', text:'Bye'},
-      {who:'You', time:'03:48-04:04', text:"It doesn't have to end like this... just give me one more chance to redeem myself"},
-      {who:'You', time:'04:50', text:"(You sent a long, deeply personal letter from your heart while she was away writing her exam)"},
-      {who:'Enhle', time:'10:05', text:"Amo... I saw your message and it's the sweetest thing you sent to me"},
-      {who:'Enhle', time:'10:13', text:"I js got home btw if you wanna call"},
-      {who:'Enhle', time:'14:36', text:"I love you more ❤️"}
+  'make-official': {
+    date: '21 Jan 2026 — 22:28',
+    title: "Let's Make It Official",
+    messages: [
+      {who:'You', time:'22:28', text:`"Let's make it official 🤷🏾‍♂️"`},
+      {who:'Enhle', time:'22:29', text:`"You want a long distance relationship"`},
     ],
-    excerpt:'~03:47 — Things escalated on a call... (sensitive)'
+    excerpt: '22:28 — Let\'s make it official'
   },
-  { id:'why-love', date:'Ongoing', title:'Why I love you',
-    messages:[ {who:'You', time:'—', text:"You are beautiful inside and out. I love everything about you."} ],
-    excerpt:'Your kindness, your eyes, your personality — everything about you.'
+  'official-ask': {
+    date: '1 Feb 2026 — 19:58',
+    title: 'The Official "Be My Girlfriend?"',
+    messages: [
+      {who:'You', time:'19:58', text:`"Do you wanna be my girlfriend?"`},
+      {who:'Enhle', time:'20:06', text:`"Am I not? What happened to the joke 😭😭😭"`},
+      {who:'You', time:'20:19', text:`"Mission successful 💕 You laughed 😭😭"`},
+    ],
+    excerpt: '19:58 — The official ask'
+  },
+  'valentine': {
+    date: "14 Feb 2026 — 00:02",
+    title: "Valentine's Day",
+    messages: [
+      {who:'You', time:'00:02', text:`"Happy Valentine's day to my beautiful, amazing and gorgeous girlfriend 💕❤️"`},
+    ],
+    excerpt: "00:02 — Valentine's message"
+  },
+  'breakup': {
+    date: '17 Jun 2026',
+    title: 'The Breakup & Getting Back Together',
+    sensitive: true,
+    messages: [
+      {who:'Enhle', time:'~03:47', text: 'Bye'},
+      {who:'You', time:'03:48-04:04', text: "It doesn't have to end like this... just give me one more chance to redeem myself"},
+      {who:'You', time:'04:50', text: "(You sent a long, deeply personal letter from your heart while she was away writing her exam)"},
+      {who:'Enhle', time:'10:05', text: "Amo... I saw your message and it's the sweetest thing you sent to me"},
+      {who:'Enhle', time:'10:13', text: "I js got home btw if you wanna call"},
+      {who:'Enhle', time:'14:36', text: "I love you more ❤️"}
+    ],
+    excerpt: '~03:47 — Things escalated on a call... (sensitive)'
+  },
+  'why-love': {
+    date: 'Ongoing',
+    title: 'Why I love you',
+    messages: [ {who:'You', time:'—', text: "You are beautiful inside and out. I love everything about you."} ],
+    excerpt: 'Your kindness, your eyes, your personality — everything about you.'
   }
-];
+};
 
+/* quiz */
 const quizQuestions = [
   { q: "How did I (Calvin) first find you?", options:["TikTok live","Instagram DM","WhatsApp","Facebook"], correct:0 },
   { q: "When did we first start talking?", options:["12 Jan 2026","1 Feb 2026","21 Jan 2026","14 Feb 2026"], correct:0 },
@@ -285,16 +317,18 @@ const quizQuestions = [
   { q: "How far apart are we (approx)?", options:["382 km / ~4h17m","100 km","600 km","50 km"], correct:0 }
 ];
 
-/* ===== state ===== */
+/* state */
 let showSensitive = false;
 let quizIndex = 0;
 let quizAnswers = [];
 let ytPlayer = null;
 
-/* ===== helpers ===== */
-function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+/* ---------- Utilities ---------- */
+function qsel(sel){ return document.querySelector(sel); }
+function qselAll(sel){ return Array.from(document.querySelectorAll(sel)); }
+function escapeHtml(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,"&#039;"); }
 
-/* typed letter (run on open) */
+/* ---------- Typed letter ---------- */
 function typeLetter(){
   const lines = [
     "Enhle,",
@@ -312,83 +346,78 @@ function typeLetter(){
     if(ci <= line.length){
       const before = lines.slice(0, pi).join('\n\n');
       el.textContent = (before ? before + '\n\n' : '') + line.slice(0, ci);
-      ci++; setTimeout(step, 18 + Math.random()*18);
-    } else { pi++; ci=0; setTimeout(step, 200); }
+      ci++;
+      setTimeout(step, 18 + Math.random()*20);
+    } else { pi++; ci=0; setTimeout(step, 220); }
   }
   step();
 }
 
-/* render list without images */
-function renderLoveGrid(){
-  const container = document.getElementById('love-list');
-  if(!container){
-    // create container lazily if it was removed earlier
-    const section = document.getElementById('timeline');
-    return;
-  }
-  container.innerHTML = '';
-  chatMoments.forEach(m=>{
-    const wrapper = document.createElement('div');
-    wrapper.style.padding = '12px';
-    wrapper.style.border = '1px solid rgba(198,75,91,.04)';
-    wrapper.style.borderRadius = '10px';
-    wrapper.style.marginBottom = '8px';
-    const title = document.createElement('div'); title.textContent = m.title; title.style.fontFamily = "'Cormorant Garamond', serif"; title.style.fontSize = '16px'; title.style.color = 'var(--rose-deep)';
-    const date = document.createElement('div'); date.textContent = m.date; date.style.color = '#7a4f4f'; date.style.fontSize = '13px'; date.style.marginBottom = '8px';
-    const excerpt = document.createElement('div'); excerpt.textContent = m.excerpt; excerpt.style.color = '#5a3a32';
-    const btn = document.createElement('button'); btn.className='tl-btn'; btn.textContent='Open conversation'; btn.style.marginTop='10px';
-    btn.addEventListener('click', ()=>openChat(m.id));
-    wrapper.appendChild(date); wrapper.appendChild(title); wrapper.appendChild(excerpt); wrapper.appendChild(btn);
-    container.appendChild(wrapper);
-  });
-}
-
-/* open chat modal */
-function openChat(id){
-  const m = chatMoments.find(x=>x.id===id); if(!m) return;
-  const modal = document.getElementById('chat-modal'), title = document.getElementById('chat-title'), body = document.getElementById('chat-body');
-  title.textContent = `${m.title} — ${m.date}`; body.innerHTML = '';
-  if(m.sensitive && !showSensitive){
-    const p = document.createElement('div'); p.className='tl-excerpt'; p.textContent='[This conversation is marked sensitive — press H to reveal]';
-    body.appendChild(p);
-  } else {
-    m.messages.forEach(msg=>{
-      const row = document.createElement('div'); row.style.display='flex'; row.style.gap='8px'; row.style.margin='8px 0';
-      const avatar = document.createElement('div'); avatar.style.width='44px'; avatar.style.height='44px'; avatar.style.borderRadius='50%'; avatar.style.display='flex'; avatar.style.alignItems='center'; avatar.style.justifyContent='center'; avatar.style.fontWeight='700'; avatar.style.color='#fff'; avatar.style.flexShrink='0';
-      avatar.style.background = (msg.who === 'You' || msg.who === 'Calvin') ? 'linear-gradient(180deg,var(--rose),var(--rose-deep))' : '#ddd';
-      avatar.textContent = (msg.who||'?')[0];
-      const bubble = document.createElement('div'); bubble.style.padding='8px 10px'; bubble.style.borderRadius='10px'; bubble.style.maxWidth='76%';
-      bubble.style.background = (msg.who === 'You' || msg.who === 'Calvin') ? 'linear-gradient(90deg,#ffeef1,rgba(239,144,160,.04))' : '#fff';
-      bubble.innerHTML = `<strong>${escapeHtml(msg.who)}</strong> · ${escapeHtml(msg.time)}<br>${escapeHtml(msg.text)}`;
-      if(msg.who === 'You' || msg.who === 'Calvin'){ row.style.flexDirection='row-reverse'; row.style.justifyContent='flex-end'; }
-      row.appendChild(avatar); row.appendChild(bubble); body.appendChild(row);
-    });
-  }
-  modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+/* ---------- Modal (open conversation) ---------- */
+function openConversation(id){
+  try {
+    const m = chatMoments[id];
+    if(!m) return;
+    const modal = document.getElementById('chat-modal');
+    const title = document.getElementById('chatTitle');
+    const body = document.getElementById('chatBody');
+    title.textContent = `${m.title} — ${m.date}`;
+    body.innerHTML = '';
+    if(m.sensitive && !showSensitive){
+      const p = document.createElement('div'); p.textContent = '[This conversation is sensitive — press H to reveal]'; p.style.color = '#6b2a2a';
+      body.appendChild(p);
+    } else {
+      m.messages.forEach(msg=>{
+        const row = document.createElement('div'); row.style.display='flex'; row.style.gap='10px'; row.style.margin='8px 0';
+        const avatar = document.createElement('div'); avatar.style.width='44px'; avatar.style.height='44px'; avatar.style.borderRadius='50%'; avatar.style.display='flex'; avatar.style.alignItems='center'; avatar.style.justifyContent='center'; avatar.style.fontWeight='700'; avatar.style.color='#fff';
+        avatar.style.flexShrink='0';
+        avatar.style.background = (msg.who === 'You' || msg.who === 'Calvin') ? 'linear-gradient(180deg,var(--rose),var(--rose-deep))' : '#ddd';
+        avatar.textContent = (msg.who||'?')[0];
+        const bubble = document.createElement('div'); bubble.style.padding='8px 10px'; bubble.style.borderRadius='10px'; bubble.style.maxWidth='76%';
+        bubble.style.background = (msg.who === 'You' || msg.who === 'Calvin') ? 'linear-gradient(90deg,#ffeef1,rgba(239,144,160,.04))' : '#fff';
+        bubble.innerHTML = `<strong>${escapeHtml(msg.who)}</strong> · ${escapeHtml(msg.time)}<br>${escapeHtml(msg.text)}`;
+        if(msg.who === 'You' || msg.who === 'Calvin'){ row.style.flexDirection='row-reverse'; row.style.justifyContent='flex-end'; }
+        row.appendChild(avatar); row.appendChild(bubble); body.appendChild(row);
+      });
+    }
+    modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+  } catch(err) { console.error('openConversation error', err); }
 }
 function closeChat(){ const modal = document.getElementById('chat-modal'); modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
 
-/* toggle sensitive messages */
+/* ---------- Toggle sensitive ---------- */
 function toggleSensitive(){
   showSensitive = !showSensitive;
-  const btn = document.getElementById('toggle-sensitive-btn'); if(btn) btn.textContent = showSensitive ? 'Hide sensitive (H)' : 'Show sensitive (H)';
-  const ex = document.getElementById('excerpt-breakup'); if(ex){
-    ex.textContent = showSensitive ? chatMoments.find(x=>x.id==='breakup').excerpt : '~03:47 — Things escalated on a call and Enhle started saying "Bye", telling you she was going to block you. (Sensitive — press H to reveal)';
-  }
+  const btn = document.getElementById('toggleSensitiveBtn'); if(btn) btn.textContent = showSensitive ? 'Hide sensitive (H)' : 'Show sensitive (H)';
+  const ex = document.getElementById('excerpt-breakup');
+  if(ex) ex.textContent = showSensitive ? chatMoments['breakup'].excerpt : '~03:47 — Things escalated on a call and Enhle started saying "Bye"... (Sensitive — press H to reveal)';
+  // if modal open with breakup, refresh
   const modal = document.getElementById('chat-modal');
-  if(modal && modal.classList.contains('open')){ const cur = document.getElementById('chat-title').textContent||''; const title = cur.split(' — ')[0]; const m = chatMoments.find(x=>x.title === title); if(m) openChat(m.id); }
+  if(modal && modal.classList.contains('open')){
+    const curTitle = document.getElementById('chatTitle').textContent || '';
+    const id = Object.keys(chatMoments).find(k => chatMoments[k].title === curTitle.split(' — ')[0]);
+    if(id) openConversation(id);
+  }
 }
 
-/* reasons counter */
+/* ---------- Reasons counter ---------- */
 function initReasons(){
-  const countEl = document.getElementById('reasons-count'), btn = document.getElementById('add-reason-btn');
-  const stored = Number(localStorage.getItem('reasonsCount')||0); countEl.textContent = stored || 0;
-  btn.addEventListener('click', ()=>{ const cur = Number(localStorage.getItem('reasonsCount')||0)+1; localStorage.setItem('reasonsCount', cur); countEl.textContent = cur; });
+  const el = document.getElementById('reasons-count');
+  const btn = document.getElementById('addReason');
+  let count = Number(localStorage.getItem('reasonsCount')||0);
+  el.textContent = count;
+  btn.addEventListener('click', ()=>{
+    count++;
+    localStorage.setItem('reasonsCount', count);
+    el.textContent = count;
+    // style tweak to make it look like other buttons done in CSS
+  });
 }
 
-/* quiz slides */
-function renderQuizSlide(){
-  const container = document.getElementById('quiz-slide'); if(!container) return;
+/* ---------- Quiz slides ---------- */
+function renderQuiz(){
+  const container = document.getElementById('quizSlide');
+  if(!container) return;
   container.innerHTML = '';
   if(quizIndex < 0) quizIndex = 0;
   if(quizIndex >= quizQuestions.length) quizIndex = quizQuestions.length - 1;
@@ -396,91 +425,32 @@ function renderQuizSlide(){
   const prompt = document.createElement('div'); prompt.style.fontFamily = "'Cormorant Garamond', serif"; prompt.style.color = 'var(--rose-deep)'; prompt.style.fontSize = '17px'; prompt.style.marginBottom = '10px'; prompt.textContent = q.q;
   container.appendChild(prompt);
   q.options.forEach((opt, oi)=>{
-    const btn = document.createElement('button'); btn.className = 'option'; btn.textContent = opt; btn.addEventListener('click', ()=>{
+    const b = document.createElement('button'); b.className = 'option'; b.textContent = opt;
+    b.addEventListener('click', ()=>{
       quizAnswers[quizIndex] = oi;
-      if(quizIndex < quizQuestions.length - 1){ quizIndex++; renderQuizSlide(); } else { finishQuiz(); }
+      if(quizIndex < quizQuestions.length - 1){
+        quizIndex++; renderQuiz();
+      } else {
+        finishQuiz();
+      }
     });
-    container.appendChild(btn);
-  });
-  document.getElementById('quiz-next').disabled = true;
-}
-function finishQuiz(){ let score = 0; quizQuestions.forEach((q,i)=>{ if(quizAnswers[i] === q.correct) score++; }); const out = document.getElementById('quiz-result'); out.textContent = `You scored ${score} / ${quizQuestions.length}. ${score === quizQuestions.length ? 'Perfect — you remember the moments well 💖' : (score >= 3 ? 'Great!' : 'Nice!')}`; }
-
-/* ===== YouTube Player ===== */
-const ytVideoId = 'rScwLoES2bM';
-function onYouTubeIframeAPIReady(){
-  try{
-    ytPlayer = new YT.Player('yt-player', {
-      height:'0', width:'0', videoId: ytVideoId,
-      playerVars: { controls:0, iv_load_policy:3, rel:0, modestbranding:1 },
-      events: { onReady: onYTReady, onStateChange: onYTStateChange }
-    });
-  }catch(e){ console.warn('YT create failed', e); }
-}
-function onYTReady(){
-  document.getElementById('music-player').style.display = 'flex';
-  const btn = document.getElementById('playPauseBtn');
-  btn.addEventListener('click', ()=>{
-    if(!ytPlayer) return;
-    const s = ytPlayer.getPlayerState();
-    if(s === YT.PlayerState.PLAYING || s === YT.PlayerState.BUFFERING) ytPlayer.pauseVideo();
-    else ytPlayer.playVideo();
+    container.appendChild(b);
   });
 }
-function onYTStateChange(e){ const btn = document.getElementById('playPauseBtn'); if(!btn) return; if(e.data === YT.PlayerState.PLAYING) btn.textContent = 'Pause'; else btn.textContent = 'Play'; }
-
-/* ===== Initialization wiring ===== */
-document.addEventListener('DOMContentLoaded', ()=>{
-  // Make sure the anchor and button both reveal content; anchor href handles no-JS case.
-  const anchor = document.getElementById('openAnchor');
-  const btn = document.getElementById('openBtn');
-  // If needed, show the hidden button for parity (not required)
-  btn.style.display = 'none';
-
-  // Attach fallback handler to anchor so we also run init() after it's clicked
-  anchor.addEventListener('click', function(e){
-    // small delay ensures CSS :target applies first; then run init.
-    setTimeout(() => { try { initAfterOpen(); } catch(err) { console.warn('initAfterOpen error', err); } }, 40);
-  });
-
-  // keyboard H toggle
-  document.addEventListener('keydown', (e)=>{ if(e.key === 'h' || e.key === 'H') toggleSensitive(); if(e.key === 'Escape') closeChat(); });
-
-  // quiz retry
-  document.getElementById('quiz-retry').addEventListener('click', ()=>{ quizIndex = 0; quizAnswers = []; renderQuizSlide(); document.getElementById('quiz-result').textContent = ''; });
-
-  // maps link
-  const mapsBtn = document.getElementById('open-maps-btn');
-  if(mapsBtn){ const origin = encodeURIComponent('Mpumalanga, South Africa'); const dest = encodeURIComponent('Rustenburg, South Africa'); mapsBtn.href = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=driving`; }
-
-  // Pre-render quiz so it never shows blank
-  renderQuizSlide();
-});
-
-/* Called just after Open is used (either via fragment or click) */
-function initAfterOpen(){
-  // typed letter animation
-  typeLetter();
-  // render the moments list without images
-  renderLoveGrid();
-  // reasons
-  initReasons();
-  // countdown since May 1 (changeable)
-  startCountdown('2026-05-01T00:00:00');
-  // counter since Heyy
-  updateCounter();
-  // prepare music UI labels
-  document.getElementById('music-title').textContent = 'Superpowers';
-  document.getElementById('music-artist').textContent = 'Daniel Caesar';
-  document.getElementById('music-player').style.display = 'flex';
+function finishQuiz(){
+  let score = 0;
+  quizQuestions.forEach((q,i)=>{ if(quizAnswers[i] === q.correct) score++; });
+  document.getElementById('quizResult').textContent = `You scored ${score} / ${quizQuestions.length}. ${score===quizQuestions.length ? 'Perfect — you remember the moments well 💖' : (score>=3 ? 'Great!' : 'Nice!')}`;
 }
 
-/* countdown implementation */
+/* ---------- Counter since 'Heyy' (12 Jan 2026 20:02) ---------- */
 let countdownInterval = null;
-function startCountdown(targetIso){
-  const target = new Date(targetIso);
+const START_ISO = '2026-01-12T20:02:00';
+function startCountdown(){
   function update(){
-    const now = new Date(); let diff = Math.max(0, Math.floor((now - target)/1000));
+    const target = new Date(START_ISO);
+    const now = new Date();
+    let diff = Math.max(0, Math.floor((now - target)/1000)); // seconds
     const days = Math.floor(diff / (3600*24)); diff %= (3600*24);
     const hours = Math.floor(diff / 3600); diff %= 3600;
     const minutes = Math.floor(diff / 60); const seconds = diff % 60;
@@ -494,11 +464,85 @@ function startCountdown(targetIso){
   countdownInterval = setInterval(update, 1000);
 }
 
-/* days since hey */
-function updateCounter(){ const el = document.getElementById('reasons-count') || document.getElementById('counter-num'); /* counter-num not present in simplified layout */ const dayEl = document.getElementById('counter-num'); if(dayEl){ const start = new Date('2026-01-12T20:02:00'); dayEl.textContent = Math.max(0, Math.floor((new Date()-start)/(1000*60*60*24))); } }
+/* ---------- YouTube player (Superpowers) ---------- */
+const YT_ID = 'rScwLoES2bM';
+function onYouTubeIframeAPIReady(){
+  try {
+    ytPlayer = new YT.Player('yt-player', {
+      height: '0', width: '0', videoId: YT_ID,
+      playerVars: {controls:0, iv_load_policy:3, rel:0, modestbranding:1},
+      events: {onReady: onYTReady, onStateChange: onYTStateChange}
+    });
+  } catch(e){ console.warn('YT API error', e); }
+}
+function onYTReady(){
+  // show music UI
+  const music = document.getElementById('music');
+  if(music) music.style.display = 'flex';
+  const btn = document.getElementById('playPauseBtn');
+  btn.addEventListener('click', ()=>{
+    if(!ytPlayer) return;
+    const state = ytPlayer.getPlayerState();
+    if(state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) ytPlayer.pauseVideo();
+    else ytPlayer.playVideo();
+  });
+}
+function onYTStateChange(e){
+  const btn = document.getElementById('playPauseBtn');
+  if(!btn) return;
+  if(e.data === YT.PlayerState.PLAYING) btn.textContent = 'Pause';
+  else btn.textContent = 'Play';
+}
 
-/* small console fallback for errors */
-window.addEventListener('error', function(e){ console.error('Window error:', e.message, e.filename+':'+e.lineno); });
+/* ---------- Attach events and init ---------- */
+document.addEventListener('DOMContentLoaded', ()=>{
+  try {
+    // Open button: reveal main content and run initializers
+    const openBtn = document.getElementById('openBtn');
+    openBtn.addEventListener('click', () => {
+      // Reveal main
+      document.getElementById('intro').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+      // Initialize features
+      setTimeout(()=>{ // slight delay to ensure DOM rendering
+        try { typeLetter(); startCountdown(); initReasons(); renderQuiz(); } catch(err){ console.warn('init error', err); }
+      }, 60);
+    });
+
+    // Wire timeline open buttons
+    qselAll('.tl-btn').forEach(b=>{
+      b.addEventListener('click', (e)=>{
+        const id = e.currentTarget.getAttribute('data-id');
+        if(id) openConversation(id);
+      });
+    });
+
+    // Toggle sensitive H
+    const toggleBtn = document.getElementById('toggleSensitiveBtn');
+    toggleBtn.addEventListener('click', toggleSensitive);
+
+    // Quiz retry
+    document.getElementById('quizRetry').addEventListener('click', ()=>{
+      quizIndex = 0; quizAnswers = []; document.getElementById('quizResult').textContent = ''; renderQuiz();
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'h' || e.key === 'H') toggleSensitive();
+      if(e.key === 'Escape') closeChat();
+    });
+
+    // Pre-render quiz so it isn't empty even before opening main
+    renderQuiz();
+  } catch(e){
+    console.error('DOMContentLoaded handler error', e);
+  }
+});
+
+/* Small safety: log errors */
+window.addEventListener('error', (ev) => {
+  console.error('Window error:', ev.message, ev.filename+':'+ev.lineno);
+});
 </script>
 </body>
 </html>
